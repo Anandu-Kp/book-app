@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Navbar from "./Components/Navbar";
+import InfoPanel from "./Components/InfoPanel";
+import BookContainer from "./Components/BookContainer";
+import BookInfo from "./Components/BookInfo";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
+
+
+  let [books, setBooks] = useState([]);
+  let [currentBook, setCurrentBook] = useState({});
+  console.log(currentBook);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar setBooks={setBooks} />
+      {Object.keys(currentBook).length === 0 ? (
+        <InfoPanel />
+      ) : (
+        <BookInfo book={currentBook} />
+      )}
+      < BookContainer books={books} setCurrentBook={setCurrentBook} />
     </div>
   );
 }
